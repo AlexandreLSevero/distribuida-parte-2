@@ -1,0 +1,33 @@
+// urls.proto
+syntax = "proto3";
+
+package encurtadorurl;
+
+// Mensagem para a requisição de encurtamento
+message RequisicaoEncurtar {
+  string url_longa = 1;
+}
+
+// Mensagem para a resposta de encurtamento
+message RespostaEncurtar {
+  string url_curta = 1; // Ex: http://localhost:50051/CODIGO
+}
+
+// Mensagem para a requisição de obtenção da URL longa
+message RequisicaoObterURLLonga {
+  string codigo_curto = 1;
+}
+
+// Mensagem para a resposta de obtenção da URL longa
+message RespostaObterURLLonga {
+  string url_longa = 1; // A URL original
+}
+
+// O serviço que será exposto pelo servidor
+service EncurtadorURL {
+  // RPC para encurtar uma URL
+  rpc EncurtarURL (RequisicaoEncurtar) returns (RespostaEncurtar);
+
+  // RPC para obter a URL longa a partir do código curto
+  rpc ObterURLLonga (RequisicaoObterURLLonga) returns (RespostaObterURLLonga);
+}
